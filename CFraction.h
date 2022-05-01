@@ -68,46 +68,46 @@ public:
         return temp;
     }
 
-    CFraction operator * (const CFraction &exciting) {
+    CFraction operator * (const CFraction &exciting) const {
         CFraction temp;
         temp.numerator = this->numerator * exciting.numerator;
         temp.denominator = this->denominator * exciting.denominator;
         return temp;
     }
 
-    CFraction operator * (const int &value) {
+    CFraction operator * (const int &value) const {
         CFraction temp;
         temp.numerator = numerator * value;
         temp.denominator = denominator;
         return temp;
     }
 
-    CFraction operator / (const CFraction &exciting) {
+    CFraction operator / (const CFraction &exciting) const {
         CFraction temp;
         temp.numerator = this->numerator * exciting.denominator;
         temp.denominator = this->denominator * exciting.numerator;
         return temp;
     }
 
-    CFraction operator / (const int &value) {
+    CFraction operator / (const int &value) const {
         CFraction temp;
         temp.numerator = numerator;
         temp.denominator = denominator * value;
         return temp;
     }
 
-    CFraction operator + (const CFraction &exciting) {
+    CFraction operator + (const CFraction &exciting) const {
         CFraction temp;
         if (this->denominator == exciting.denominator || exciting.denominator == 0) {
             temp.numerator = this->numerator + exciting.numerator;
         } else {
             temp.denominator = this->denominator * exciting.denominator;
             temp.numerator = this->numerator * exciting.denominator + exciting.numerator * this->denominator;
-            return temp;
         }
+        return temp;
     }
 
-    CFraction operator + (const int &value) {
+    CFraction operator + (const int &value) const {
         CFraction temp;
         temp.numerator = numerator + value * denominator;
         temp.denominator = denominator;
@@ -121,8 +121,8 @@ public:
         } else {
             temp.denominator = this->denominator * exciting.denominator;
             temp.numerator = this->numerator * exciting.denominator - exciting.numerator * this->denominator;
-            return temp;
         }
+        return temp;
     }
 
     CFraction operator - (const int &value) const {
@@ -133,37 +133,55 @@ public:
     }
 
     CFraction operator += (const CFraction &exciting) {
-        CFraction temp;
-
-        return temp = CFraction() + exciting;
+        if (this->denominator == exciting.denominator || exciting.denominator == 0) {
+            this->numerator = this->numerator + exciting.numerator;
+        } else {
+            this->denominator = this->denominator * exciting.denominator;
+            this->numerator = this->numerator * exciting.denominator + exciting.numerator * this->denominator;
+        }
+        return *this;
     }
 
     CFraction operator += (const int &value) {
-        return CFraction() + value;
+        this->numerator = numerator + value * denominator;
+        return *this;
     }
 
     CFraction operator -= (const CFraction &exciting) {
-        return CFraction() - exciting;
+        if (this->denominator == exciting.denominator || exciting.denominator == 0) {
+            this->numerator = this->numerator - exciting.numerator;
+        } else {
+            this->denominator = this->denominator * exciting.denominator;
+            this->numerator = this->numerator * exciting.denominator - exciting.numerator * this->denominator;
+        }
+        return *this;
     }
 
     CFraction operator -= (const int &value) {
-        return CFraction() - value;
+        this->numerator = numerator - value * denominator;
+        return *this;
     }
 
     CFraction operator *= (const CFraction &exciting) {
-        return CFraction() * exciting;
+        this->numerator = this->numerator * exciting.numerator;
+        this->denominator = this->denominator * exciting.denominator;
+        return *this;
     }
 
     CFraction operator *= (const int &value) {
-        return CFraction() * value;
+        this->numerator = numerator * value;
+        return *this;
     }
 
     CFraction operator /= (const CFraction &exciting) {
-        return CFraction() / exciting;
+        this->numerator = this->numerator * exciting.denominator;
+        this->denominator = this->denominator * exciting.numerator;
+        return *this;
     }
 
     CFraction operator /= (const int &value){
-        return CFraction() / value;
+        this->denominator = denominator * value;
+        return *this;
     }
 
     int getNumerator() {
